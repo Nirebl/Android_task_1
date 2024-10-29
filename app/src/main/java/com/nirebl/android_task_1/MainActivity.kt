@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
+        val addButton: FloatingActionButton = findViewById(R.id.fab)
 
         savedInstanceState?.let {
             val savedItems = it.getIntegerArrayList("items")
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         adapter = RectangleAdapter(this, items)
         recyclerView.adapter = adapter
 
-        fab.setOnClickListener {
+        addButton.setOnClickListener {
             adapter.addItem()
             recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
         }
