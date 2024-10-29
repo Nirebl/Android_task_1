@@ -44,6 +44,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putIntegerArrayList("items", ArrayList(items))
+        outState.putIntegerArrayList("items", ArrayList(items)) //just integer - optimize
     }
 }
