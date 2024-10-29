@@ -13,10 +13,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val fab: FloatingActionButton = findViewById(R.id.fab)
 
-        val columnCount = if (resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) 3 else 4
+        savedInstanceState?.let {
+            val savedItems = it.getIntegerArrayList("items")
+            if (savedItems != null) {
+                items.addAll(savedItems)
+            }
+        }
+
+        val columnCount = if (resources.configuration.orientation
+            == android.content.res.Configuration.ORIENTATION_PORTRAIT
+        ) {
+            3
+        } else {
+            4
+        }
         recyclerView.layoutManager = GridLayoutManager(this, columnCount)
 
         adapter = RectangleAdapter(this, items)
@@ -26,5 +40,10 @@ class MainActivity : AppCompatActivity() {
             adapter.addItem()
             recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putIntegerArrayList("items", ArrayList(items))
     }
 }
